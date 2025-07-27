@@ -1,0 +1,125 @@
+
+METHODOLOGY
+
+1. Calculated bill_amount - df
+2. No items, dropped items in each bill_amount
+ - df_unique_bills
+3. Reduced columns 
+ - df_unique_bills1
+4. Removed outliers to 3 sigma
+ - df_filtered
+5. Separated into df_bigbills(>Rs.5000)
+ and df_msmb(<=Rs5000) 
+6. Plotted histogram
+7. Clustering and grouping of bills 
+    BILLS CLASSIFICATION BASED ON VALUE
+    #11-250: Micro
+    #251-650: Small
+    #651-1650: Medium
+    #1651-5000: Large
+    #>5000: Bulk
+
+
+
+OBSERVATIONS
+
+1. Count and Value stats of bill amounts based on Festivity
+    📊 Bill Amount Range: ₹11 to ₹250
+    🧮 Count: 96384 / 232867 = 41.39%
+    💰 Value: ₹11,951,737.00 / ₹134,392,523.00 = 8.89%
+
+
+DATA MINING
+
+Calculating Conditional Probabilities
+    df5 - conditional probabilty
+    CONDITIONAL PROBABILTY BASED ON:
+    DAY TYPE - weekday/weekend
+    BILL VALUE - 5 bins : micro,small, medium, large, bulk
+    
+    PRODUCT - TOP 10
+        CATEGORY
+        ITEM
+        WEIGHT
+        AMOUNT
+    FOOTFALL - count of unique Bill_No
+    
+    CUSTOMER
+
+1. df - input from StatModels.ipynb
+2. df1 - filtering the data for only "weighted" items 
+            and cleaning for <Rs.10 items
+3. df2 - unique bill numbers where a bill number consists of only one product
+The above dataframe is not good for further analysis.
+
+    Conditional Probability Questions for Data Mining:
+Given Weekday or Weekend, what could be the bill_amount and footfall?
+Given Weekday or Weekend, what are the top categories/items which give the max bill amount and footfall?
+Given the bill_class, which categories/items are bought the most, and which give max revenue?
+
+A. **Customer Segmentation & Spend Behavior**
+ Insight Objective: Understand footfall and spend patterns across weekdays vs weekends.
+
+1. **P(Footfall | Day Type)**
+> *How does unique bill count vary between weekdays and weekends?* 
+
+2. **P(Bill Class | Day Type)**
+> *What is the probability distribution of Micro, Small, Medium, Large, and Bulk bills on weekdays vs weekends?* Include Festive and Non-Festive days
+
+3. **P(Day Type | Bill Class = Bulk)**
+Do our largest spenders shop more on weekends or weekdays?
+
+4. **P(Weight | Day Type)**
+Are weekend shoppers buying in higher quantity (weight)? 
+
+5. **P(Weight | Bill Class)**
+> *Do customers in the Medium or Large class tend to buy heavier products?*
+
+6. **P(Day Type | Bill Class = Bulk)**
+> *Are Bulk bills more likely to occur on weekends or weekdays? or exclusively on festive seasons?*
+
+
+---
+
+B. **Product Affinity & Purchase Patterns**
+
+5. **P(Item | Day Type = Weekend)** for Top 10 Items
+> *Which specific items are most frequently bought on weekends?*
+
+6. **P(Category | Bill Class = Bulk)**
+> *Which product categories are more likely in micro, small, medium, large and bulk bills? based on value*
+
+7. **P(Item | Bill Class = Micro)**
+> *What items are most likely in very small bills?*
+
+8. **P(Weight | Item, Category)**
+> *Which products are bought in higher weight per bill?*
+
+9. **P(Amount | Category = Dry Sweets)**
+> *What is the average contribution of specific categories to bill value?*
+
+---
+
+C. **Operational & Inventory Planning**
+
+10. **P(Footfall | Category = Milk Sweets, Day Type = Weekend)**
+> *Does a particular product category drive more footfall on weekends?*
+
+11. **P(Category | Bill Class = Medium AND Day Type = Weekday)**
+> *What categories dominate weekday medium-sized bills?*
+
+12. **P(Bill Value Class | Top 3 Items)**
+> *For each of the most sold items, what is the most common bill value class?*
+
+---
+
+D. **Advanced Insights (Cross Interactions)**
+
+13. **P(Day Type | Item = Kaju Katli, Category = Premium Sweets)**
+> *Is Kaju Katli purchased more on weekends compared to other premium sweets?*
+
+14. **P(Category | Day Type = Weekend AND Bill Value = small, medium and Large)**
+What are the high-ticket item categories people splurge on during weekends?
+
+15. **P(Category | Bill Class = Medium AND Day Type = Weekday)**
+What products are popular during routine, small and medium-spend weekday shopping?
